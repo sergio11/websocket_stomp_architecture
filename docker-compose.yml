@@ -14,6 +14,41 @@ services:
     ports:
       - '8081:15672'
       - '61613:61613'
+
+  # MongoDB
+  mongo-db:
+    image: mongo
+    container_name: mongo-db
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DB}
+
+  # Web-based MongoDB admin interface, written with Node.js and express
+  mongo-express-web:
+    image: mongo-express
+    container_name: mongo-express-web
+    env_file:
+      - .env
+    restart: always
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo-db
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USER}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+    depends_on:
+      - mongo-db
+    ports:
+      - "8084:8081"
     
 
 

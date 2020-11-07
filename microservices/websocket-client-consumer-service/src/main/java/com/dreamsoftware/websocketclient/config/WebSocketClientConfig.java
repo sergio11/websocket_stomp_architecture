@@ -2,7 +2,6 @@ package com.dreamsoftware.websocketclient.config;
 
 import com.dreamsoftware.websocketclient.handler.WebSocketStompSessionHandler;
 import java.util.concurrent.ExecutionException;
-import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +23,6 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 public class WebSocketClientConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketClientConfig.class);
-
-    /**
-     * Provide Stomp Session Handler
-     *
-     * @return
-     */
-    @Bean
-    protected StompSessionHandler provideStompSessionHandler() {
-        return new WebSocketStompSessionHandler();
-    }
 
     /**
      * Provide WebSocket Client

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message implements Serializable {
+public class MessageDTO implements Serializable {
 
     /**
      * User Name
