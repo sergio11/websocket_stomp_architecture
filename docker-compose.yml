@@ -3,7 +3,7 @@ version: '3.6'
 volumes:
   rabbitmq_data:
     driver: local
-    
+
 services:
   # Rabbit MQ Stomp
   rabbitmq_stomp:
@@ -12,7 +12,8 @@ services:
     volumes:
       - 'rabbitmq_data:/var/lib/rabbitmq'
     ports:
-      - '8080:15672'
+      - '8081:15672'
+      - '61613:61613'
     
 
 
