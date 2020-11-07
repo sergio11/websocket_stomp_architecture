@@ -1,4 +1,4 @@
-package com.dreamsoftware.websocketserver.web.dto;
+package com.dreamsoftware.websocketclient.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class PublishMessageDTO implements Serializable {
+public class Message implements Serializable {
 
     /**
      * User Name

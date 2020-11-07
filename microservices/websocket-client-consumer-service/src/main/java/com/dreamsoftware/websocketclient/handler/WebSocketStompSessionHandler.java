@@ -7,7 +7,7 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
-import com.dreamsoftware.websocketclient.web.dto.PublishMessageDTO;
+import com.dreamsoftware.websocketclient.domain.Message;
 
 /**
  *
@@ -26,6 +26,7 @@ public class WebSocketStompSessionHandler extends StompSessionHandlerAdapter {
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         logger.info("New session established : " + session.getSessionId());
+        session.subscribe("/topic/messages", this);
     }
 
     /**
@@ -43,7 +44,7 @@ public class WebSocketStompSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public Type getPayloadType(StompHeaders headers) {
-        return PublishMessageDTO.class;
+        return Message.class;
     }
 
     /**

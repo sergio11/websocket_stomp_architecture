@@ -54,8 +54,6 @@ public class PublishMessageController extends SupportController {
 
         try {
 
-            logger.debug("Publish Message -> " + messageDTO.getUsername());
-
             publishMessageService.publish(messageDTO);
 
             return responseHelper.createAndSendResponse(
