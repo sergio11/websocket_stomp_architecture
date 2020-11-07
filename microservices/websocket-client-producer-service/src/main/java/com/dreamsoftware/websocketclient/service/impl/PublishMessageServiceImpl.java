@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import com.dreamsoftware.websocketclient.web.dto.PublishMessageDTO;
+import org.springframework.messaging.simp.stomp.StompSession;
 
 /**
  *
@@ -15,13 +16,18 @@ import com.dreamsoftware.websocketclient.web.dto.PublishMessageDTO;
 public class PublishMessageServiceImpl implements IPublishMessageService {
 
     /**
+     * Stomp Session
+     */
+    private final StompSession stompSession;
+
+    /**
      *
      * @param message
      */
     @Override
     public void publish(final PublishMessageDTO message) {
         Assert.notNull(message, "Message can not be null");
-        //messagingTemplate.convertAndSend("/topic/message", message);
+        stompSession.send("/topic/messages", message);
     }
 
 }

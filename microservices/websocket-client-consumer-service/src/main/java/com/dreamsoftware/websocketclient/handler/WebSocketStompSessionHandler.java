@@ -7,15 +7,22 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
-import com.dreamsoftware.websocketclient.web.dto.PublishMessageDTO;
+import com.dreamsoftware.websocketclient.domain.MessageDTO;
+import com.dreamsoftware.websocketclient.service.IMessageService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author ssanchez
  */
+@Component
+@RequiredArgsConstructor
 public class WebSocketStompSessionHandler extends StompSessionHandlerAdapter {
 
     private Logger logger = LoggerFactory.getLogger(WebSocketStompSessionHandler.class);
+
+    private final IMessageService messageService;
 
     /**
      * On After Connected
@@ -26,6 +33,7 @@ public class WebSocketStompSessionHandler extends StompSessionHandlerAdapter {
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         logger.info("New session established : " + session.getSessionId());
+        session.subscribe("/topic/messages", this);
     }
 
     /**
@@ -43,7 +51,7 @@ public class WebSocketStompSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public Type getPayloadType(StompHeaders headers) {
-        return PublishMessageDTO.class;
+        return MessageDTO.class;
     }
 
     /**
@@ -54,6 +62,9 @@ public class WebSocketStompSessionHandler extends StompSessionHandlerAdapter {
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
         logger.error("on handleFrame CALLED");
-
+        if (payload instanceof MessageDTO) {
+            logger.error("Save Message CALLED");
+            messageService.save((MessageDTO) payload);
+        }
     }
 }
