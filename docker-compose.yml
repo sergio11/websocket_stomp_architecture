@@ -6,14 +6,13 @@ volumes:
 
 services:
   # Rabbit MQ Stomp
-  rabbitmq_stomp:
+  rabbitmq-stomp:
     image: activiti/rabbitmq-stomp
     container_name: rabbitmq-stomp
     volumes:
       - 'rabbitmq_data:/var/lib/rabbitmq'
     ports:
       - '8081:15672'
-      - '61613:61613'
 
   # MongoDB
   mongo-db:
@@ -22,8 +21,6 @@ services:
     env_file:
       - .env
     restart: always
-    ports:
-      - "27017:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
@@ -48,7 +45,28 @@ services:
     depends_on:
       - mongo-db
     ports:
-      - "8084:8081"
+      - "8082:8081"
+
+  ## WebSocket Stomp Server
+  websocket-stomp-server:
+    image: ssanchez11/websocket_stomp_server:0.0.1-SNAPSHOT
+    container_name: websocket-stomp-server
+    restart: unless-stopped
+
+  ## WebSocket Client Producer Server
+  websocket-client-producer-service:
+    image: ssanchez11/websocket_client_producer_service:0.0.1-SNAPSHOT
+    container_name: websocket-client-producer-service
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+
+  ## WebSocket Client Consumer Service
+  websocket-client-consumer-service:
+    image: ssanchez11/websocket_client_consumer_service:0.0.1-SNAPSHOT
+    container_name: websocket-client-consumer-service
+    restart: unless-stopped
     
 
 
