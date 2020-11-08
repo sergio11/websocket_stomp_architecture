@@ -1,0 +1,12 @@
+stomp:
+    destination.broadcast: /topic/unresolved.user.dest
+    registry.broadcast: /topic/registry.broadcast
+    host: rabbitmq-stomp
+    port: 61613
+    client:
+        username: guest
+        passcode: guest
+
+logging.level:
+    com.dreamsoftware.websocketserver: DEBUG
+    org.springframework.web.socket: DEBUG
