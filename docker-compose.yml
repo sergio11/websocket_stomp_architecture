@@ -7,7 +7,8 @@ volumes:
 services:
   # Rabbit MQ Stomp
   rabbitmq-stomp:
-    image: activiti/rabbitmq-stomp
+    build: 
+      context: ./rabbitmq_stomp
     container_name: rabbitmq-stomp
     volumes:
       - 'rabbitmq_data:/var/lib/rabbitmq'
