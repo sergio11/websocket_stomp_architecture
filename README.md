@@ -54,3 +54,4 @@ As follow, I include some images that help us to understand the performance of e
 <img width="auto" src="./images/imagen_2.PNG" />
 <img width="auto" src="./images/imagen_3.PNG" />
 <img width="auto" src="./images/imagen_4.PNG" />
+<img width="auto" src="./images/imagen_5.PNG" />
