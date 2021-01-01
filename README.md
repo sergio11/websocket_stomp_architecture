@@ -1,5 +1,8 @@
 # An approach to communication between microservices based on WebSocket / Stomp
 
+<img width="auto" src="./images/websocket_stomp_architecture.png" />
+
+
 ## Used technology
 
 * Spring Boot 2.3.5 / Apache Maven 3.6.3.
